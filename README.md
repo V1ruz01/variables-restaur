@@ -1,2 +1,4 @@
 # Variables Restaurant by madoka384
 Variables means that this restaurant has much of types of the food. Probably, this means that this restaurant is an 'all-you-can-eat' typish. Maybe?....
+
+In Development
