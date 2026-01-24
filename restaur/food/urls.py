@@ -10,5 +10,5 @@ urlpatterns = [
     path('<int:pk>/', FoodDetailView.as_view(), name='food_details'),
     path('update<int:pk>/', FoodUpdateView.as_view(), name='food_update'),
     path('delete/<int:pk>/', FoodDeleteView.as_view(), name='food_detele'),
-    path('login/', LoginView.as_view(template_name='register/login.html', name='login')),
+    path('login/', LoginView.as_view(template_name='register/login.html'), name='login'),
 ]

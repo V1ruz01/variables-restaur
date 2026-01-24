@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-
-#!/usr/bin/env bash
 set -e
+
+cd restaur
 
 python manage.py migrate --noinput
 
 # python manage.py collectstatic --noinput
 
-exec gunicorn config.wsgi:application -b 0.0.0.0:8000 --workers 3
+# exec gunicorn restaur.wsgi:application -b 0.0.0.0:8000 --workers 3
 
 
+python manage.py runserver 0.0.0.0:8000
 

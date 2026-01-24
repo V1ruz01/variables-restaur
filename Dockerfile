@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["bash", "/variables-restaur/docker-entrypoint.sh"]
+CMD ["bash", "/app/docker-entrypoint.sh"]

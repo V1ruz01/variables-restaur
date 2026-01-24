@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-2er5s7%)16bvecc1(e-lj*f!&70ebsmypsom1#k#v&r%i=x*6+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # For development only
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'account',
+    'cart',
     'food',
 ]
 
@@ -107,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'CET'
+TIME_ZONE = 'Europe/Brussels'
 
 USE_I18N = True
 
