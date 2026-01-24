@@ -3,8 +3,9 @@ from django.db import models
 # Create your models here.
 class FoodModel(models.Model):
     class FoodType(models.TextChoices):
-        FRUIT = 'Fruit'
-        VEGET = 'Vetetable'
+        FRUIT = 'Fruit',
+        VEGET = 'Vetetable',
+        DRINK = 'Drink'
 
 
     food_name = models.CharField(max_length=60, unique=True)
@@ -12,6 +13,7 @@ class FoodModel(models.Model):
 
     class Meta:
         verbose_name = 'Food'
+        verbose_name_plural = 'Food'
 
 
     def __str__(self):

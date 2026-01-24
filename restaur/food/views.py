@@ -8,7 +8,7 @@ from .forms import FoodForm
 # Create your views here.
 
 
-class FoodCreateView(LoginRequiredMixin ,CreateView):
+class FoodCreateView(LoginRequiredMixin, CreateView):
     model = FoodModel
     form = FoodForm
     template_name = 'food/create_food.html'
