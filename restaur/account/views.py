@@ -1,7 +1,9 @@
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
+
+from food.models import FoodModel
 
 
 # Create your views here.
@@ -14,3 +16,8 @@ class RegisterView(CreateView):
         responce = super().form_valid(self)
         login(self.request, self.object)
         return responce
+
+class MenuView(ListView):
+    model = FoodModel
+    template_name = 'food/foodmodel_list.html'
+    context_object_name = 'main_menu'
