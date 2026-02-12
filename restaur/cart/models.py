@@ -7,6 +7,7 @@ class CartModel(models.Model):
     in_cart_productes = models.ManyToManyField(FoodModel)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='cart')
     title = models.CharField(max_length=4, default='Cart')
+    desc = models.CharField(max_length=1000, blank=True)
 
     class Meta:
         verbose_name = 'Product'

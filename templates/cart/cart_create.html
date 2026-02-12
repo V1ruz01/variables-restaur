@@ -1,1 +1,10 @@
 {% extends "base.html" %}
+{% block content %}
+
+<h2>Create a Cart!</h2>
+
+<form method='post' enctype='multitype/form-data'>
+    {% csrf_token %}
+</form>
+
+{% endblock content %}
