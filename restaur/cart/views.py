@@ -8,9 +8,9 @@ from . import models, forms
 # Create your views here.
 class CartCreateView(LoginRequiredMixin, CreateView):
     model = models.CartModel
-    form = forms.CartForm
+    form_class = forms.CartForm
     template_name = 'cart/cart_create.html'
-    success_url = reverse_lazy('food:foodmodels_list')
+    success_url = reverse_lazy("cart:cart_create")
 
     def form_valid(self, form):
         if form.instance.creator == self.request.user:
@@ -19,7 +19,7 @@ class CartCreateView(LoginRequiredMixin, CreateView):
 
 class CartUpdateView(UpdateView):
     model = models.CartModel
-    form = forms.CartForm
+    form_class = forms.CartForm
     template_name = 'cart/cart_update.html'
     success_url = reverse_lazy('food:foodmodel_list')
 

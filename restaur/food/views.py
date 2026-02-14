@@ -10,7 +10,7 @@ from .forms import FoodForm
 
 class FoodCreateView(LoginRequiredMixin, CreateView):
     model = FoodModel
-    form = FoodForm
+    form_class = FoodForm
     template_name = 'food/create_food.html'
     success_url = reverse_lazy('food:foodmodels_list')
 
@@ -21,7 +21,7 @@ class FoodCreateView(LoginRequiredMixin, CreateView):
 
 class FoodUpdateView(LoginRequiredMixin, UpdateView):
     model = FoodModel
-    form = FoodForm
+    form_class = FoodForm
     template_name = 'food/update_food.html'
     success_url = reverse_lazy('food:foodmodel_list')
 

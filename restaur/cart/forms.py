@@ -1,7 +1,7 @@
 from django import forms
 from . import models
 
-class CartForm(forms.Form):
-    model = models.FoodModel
+class CartForm(forms.ModelForm):
     class Meta:
-        fields = {'title', 'desc'}
+        model = models.CartModel
+        exclude = ["creator"]
