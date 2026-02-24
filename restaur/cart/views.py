@@ -6,33 +6,24 @@ from django.urls import reverse_lazy
 from . import models, forms
 
 # Create your views here.
-class CartCreateView(LoginRequiredMixin, CreateView):
-    model = models.CartModel
-    form_class = forms.CartForm
-    template_name = 'cart/cart_create.html'
-    success_url = reverse_lazy("cart:cart_create")
-
-    def form_valid(self, form):
-        if form.instance.creator == self.request.user:
-            return super().form_valid(form)
-
-
 class CartUpdateView(UpdateView):
     model = models.CartModel
-    form_class = forms.CartForm
+    form = forms.CartForm
     template_name = 'cart/cart_update.html'
-    success_url = reverse_lazy('food:foodmodel_list')
+    success_url = reverse_lazy('cart:cart_update')
 
 
 class CartDetailView(LoginRequiredMixin, DetailView):
     model = models.CartModel
     template_name = 'cart/cart_details.html'
-    context_object_name = 'cart_details'
+    context_object_name = 'cart_det'
 
+    def get_object(self):
+        return self.request.user.cart_det
 
 class CartDeleteView(LoginRequiredMixin, DeleteView):
     model = models.CartModel
     template_name = 'cart/cart_delete.html'
-    success_url = reverse_lazy('food:foodmodel_list')
+    success_url = reverse_lazy('cart:cart_delete')
 
 
