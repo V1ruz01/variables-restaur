@@ -1,12 +1,12 @@
 {% load static %}
 <!doctype html>
-<html lang="uk">
+<html lang="uk" data-bs-theme='{{ current_theme }}'>
 
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
   <title>
     Variables Restaurant
   </title>
@@ -73,9 +73,17 @@
                   <a class='nav-link' href='login/'>Login</a>
                 </li>
               {% endif %}
+              <li class="nav-item">
+                <a href="{% url 'toggle_theme' %}" class="nav-link">
+                  {% if current_theme == 'dark' %}
+                    <i class="fi fi-rs-sun align-middle"></i>
+                  {% else %}
+                    <i class="fi fi-rs-moon-stars align-middle"></i>
+                  {% endif %}
+                </a>
+              </li>
             </ul>
           </div>
-
         {% endif %}
       </div>
     </nav>

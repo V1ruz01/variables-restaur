@@ -36,3 +36,5 @@ class FoodDeleteView(LoginRequiredMixin, DeleteView):
     model = FoodModel
     template_name = 'food/delete_food.html'
     success_url = reverse_lazy('food:foodmodel_list')
+
+

@@ -1,7 +1,9 @@
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.views import View
 from django.views.generic import CreateView, ListView
+from django.shortcuts import redirect
 
 from food.models import FoodModel
 
@@ -21,3 +23,16 @@ class MenuView(ListView):
     model = FoodModel
     template_name = 'food/foodmodel_list.html'
     context_object_name = 'main_menu'
+
+
+class ToggleThemeView(View):
+    def post(self, request, *args, **kwargs):
+        current = request.session.get('theme', 'light')
+        new_theme = 'dark' if current == 'light' else 'light'
+    
+        request.session['theme'] = new_theme
+        
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+    
+    def get(self, request, *args, **kwargs):
+        return redirect('/') 
