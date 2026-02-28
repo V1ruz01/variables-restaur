@@ -9,5 +9,4 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(template_name='register/login.html'), name='login'),
     path('logout/', LogoutView.as_view(template_name='register/logout.html'), name='logout'),
-    path("toggle_theme/", ToggleThemeView.as_view(), name="toggle_theme"),
 ]
