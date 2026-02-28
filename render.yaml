@@ -6,7 +6,7 @@ services:
     dockerfilePath: ./Dockerfile.prod
     region: frankfurt  # Можна змінити на oregon, singapore, etc.
     plan: free  # Або starter, standard, pro
-    branch: main  # Гілка для автоматичного розгортання
+    branch: deploy  # Гілка для автоматичного розгортання
     healthCheckPath: /
     envVars:
       - key: DEBUG
@@ -19,5 +19,5 @@ services:
         value: 3.14.2
       - key: PORT
         value: 8000
-    # Auto-deploy при push до main гілки
+    # Auto-deploy при push до deploy гілки
     autoDeploy: true
