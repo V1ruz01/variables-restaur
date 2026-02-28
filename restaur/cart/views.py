@@ -19,7 +19,7 @@ class CartDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'cart_det'
 
     def get_object(self):
-        return self.request.user.cart_det
+        return self.request.user.cartmodel
 
 class CartDeleteView(LoginRequiredMixin, DeleteView):
     model = models.CartModel
