@@ -1,0 +1,23 @@
+services:
+  # Web Service
+  - type: web
+    name: restaur-app
+    runtime: docker
+    dockerfilePath: ./Dockerfile.prod
+    region: frankfurt  # Можна змінити на oregon, singapore, etc.
+    plan: free  # Або starter, standard, pro
+    branch: main  # Гілка для автоматичного розгортання
+    healthCheckPath: /
+    envVars:
+      - key: DEBUG
+        value: False
+      - key: SECRET_KEY
+        generateValue: true  # Render автоматично згенерує секретний ключ
+      - key: ALLOWED_HOSTS
+        sync: false  # Потрібно буде встановити вручну після розгортання
+      - key: PYTHON_VERSION
+        value: 3.14.2
+      - key: PORT
+        value: 8000
+    # Auto-deploy при push до main гілки
+    autoDeploy: true
