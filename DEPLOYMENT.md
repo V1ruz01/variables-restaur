@@ -471,11 +471,20 @@ git push origin main
 4. Налаштуй:
    - **Name:** назва додатку
    - **Region:** Frankfurt (або інший)
-   - **Branch:** main
-   - **Runtime:** Docker
-   - **Dockerfile Path:** `./Dockerfile.prod`
+   - **Branch:** main (або deploy, якщо деплоїш з іншої гілки)
+   - **Runtime:** **Docker** (не Python!)
+   - **Root Directory:** (залиш порожнім)
+   - **Dockerfile Path:** `./Dockerfile.prod` ⚠️ **ВАЖЛИВО!**
+     - Пиши ПОВНИЙ шлях: `./Dockerfile.prod`
+     - НЕ просто `.` (крапка)
+     - НЕ просто `Dockerfile.prod`
    - **Plan:** Free (або інший)
 5. Натисни **"Create Web Service"**
+
+**⚠️ Типові помилки:**
+- ❌ Runtime: Python 3 → Має бути **Docker**
+- ❌ Dockerfile Path: `.` → Має бути `./Dockerfile.prod`
+- ❌ Заповнені Build Command та Start Command → Видали їх (не потрібні для Docker)
 
 ---
 
@@ -629,6 +638,29 @@ docker-compose down
 docker-compose up --build
 ```
 
+### Проблема (Render): "failed to read dockerfile: open Dockerfile.prod: no such file"
+**Рішення:**
+```bash
+# 1. Перевір що файл існує локально
+ls -la | grep Dockerfile.prod
+
+# 2. Перевір що файл є на GitHub
+# Перейди на https://github.com/username/repo
+# Переключись на потрібну гілку (main/deploy)
+# Перевір наявність Dockerfile.prod
+
+# 3. Якщо файлу немає на GitHub - відправ його:
+git add Dockerfile.prod docker-entrypoint-prod.sh
+git commit -m "Add production Dockerfile"
+git push origin deploy  # або main
+
+# 4. У Render: Manual Deploy → Deploy latest commit
+```
+
+**Також перевір у Render:**
+- Dockerfile Path має бути: `./Dockerfile.prod` (не просто `.`)
+- Runtime має бути: Docker (не Python 3)
+
 ---
 
 ## Швидкий чеклист перед розгортанням
@@ -649,10 +681,43 @@ docker-compose up --build
 - [ ] Статичні файли завантажуються локально
 
 **Розгортання:**
-- [ ] Код відправлений на GitHub (гілка main)
+- [ ] Усі файли відправлені на GitHub (перевір: Dockerfile.prod, docker-entrypoint-prod.sh, render.yaml)
+- [ ] Гілка для деплою актуальна (main або deploy)
 - [ ] Зареєстрований на Render.com
 - [ ] Web Service створений
+- [ ] Runtime обрано: **Docker** (не Python 3)
+- [ ] Dockerfile Path: `./Dockerfile.prod` (не просто `.`)
 - [ ] Environment variables налаштовані (SECRET_KEY, DEBUG, ALLOWED_HOSTS)
 - [ ] Додаток успішно задеплоєний на Render
 
 ---
+
+## Швидка шпаргалка: Заповнення форми Render
+
+**Коли створюєш Web Service вручну, заповнюй ТАК:**
+
+```
+✅ Name: variables-restaur (твоя назва)
+✅ Project: My project / Production (опціонально)
+✅ Language (Runtime): Docker
+✅ Branch: deploy (або main)
+✅ Region: Oregon/Frankfurt (будь-який)
+✅ Root Directory: (ПОРОЖНЄ)
+✅ Dockerfile Path: ./Dockerfile.prod
+
+❌ Build Command: (ПОРОЖНЄ - видалити)
+❌ Start Command: (ПОРОЖНЄ - видалити)
+```
+
+**Environment Variables:**
+```
+SECRET_KEY = [натисни Generate]
+DEBUG = False
+ALLOWED_HOSTS = your-app-name.onrender.com
+```
+
+---
+
+**Версія:** 2.2 (практичний чеклист + troubleshooting + Dockerfile Path)
+**Дата:** 28.02.2026
+**Оновлено:** Додано деталі про правильний Dockerfile Path та типові помилки
