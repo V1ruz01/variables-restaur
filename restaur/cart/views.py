@@ -1,8 +1,12 @@
-from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import UpdateView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
+
+from django.views import View
+from food.models import FoodModel
+from cart.models import CartModel
 from . import models, forms
 
 # Create your views here.
@@ -14,16 +18,48 @@ class CartUpdateView(UpdateView):
 
 
 class CartDetailView(LoginRequiredMixin, DetailView):
-    model = models.CartModel
+    model = CartModel
     template_name = 'cart/cart_details.html'
-    context_object_name = 'cart_det'
+    context_object_name = 'cart'
 
     def get_object(self):
-        return self.request.user.cartmodel
+        cart, _ = CartModel.objects.get_or_create(user=self.request.user)
+        return cart
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cart = self.get_object()
+        items = cart.in_cart_productes.all()
+        context['cart_items'] = items
+        # Safe total — handles empty/null prices
+        total = 0
+        for f in items:
+            try:
+                total += float(f.price) if f.price else 0
+            except (ValueError, TypeError):
+                pass
+        context['total_price'] = total
+        return context
+    
 
 class CartDeleteView(LoginRequiredMixin, DeleteView):
     model = models.CartModel
     template_name = 'cart/cart_delete.html'
     success_url = reverse_lazy('cart:cart_delete')
 
+
+class AddToCartView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        food = get_object_or_404(FoodModel, pk=pk)
+        cart, _ = CartModel.objects.get_or_create(user=request.user)
+        cart.in_cart_productes.add(food)
+        return redirect('cart:cart_detail')
+
+
+class RemoveFromCartView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        food = get_object_or_404(FoodModel, pk=pk)
+        cart, _ = CartModel.objects.get_or_create(user=request.user)
+        cart.in_cart_productes.remove(food)
+        return redirect('cart:cart_detail')
 

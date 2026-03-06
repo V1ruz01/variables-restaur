@@ -12,18 +12,18 @@ class FoodCreateView(LoginRequiredMixin, CreateView):
     model = FoodModel
     form_class = FoodForm
     template_name = 'food/create_food.html'
-    success_url = reverse_lazy('food:foodmodels_list')
+    success_url = reverse_lazy('food:food_list')
 
     def form_valid(self, form):
-        if form.instance.creator == self.request.user:
-            return super().form_valid(form)
+        form.instance.creator == self.request.user
+        return super().form_valid(form)
 
 
 class FoodUpdateView(LoginRequiredMixin, UpdateView):
     model = FoodModel
     form_class = FoodForm
     template_name = 'food/update_food.html'
-    success_url = reverse_lazy('food:foodmodel_list')
+    success_url = reverse_lazy('food:food_list')
 
 
 class FoodDetailView(DetailView):
@@ -35,6 +35,13 @@ class FoodDetailView(DetailView):
 class FoodDeleteView(LoginRequiredMixin, DeleteView):
     model = FoodModel
     template_name = 'food/delete_food.html'
-    success_url = reverse_lazy('food:foodmodel_list')
+    success_url = reverse_lazy('food:food_list')
+
+
+class FoodList(ListView):
+    model = FoodModel
+    template_name = 'food/food_list.html'
+    context_object_name = 'food_list'
+
 
 

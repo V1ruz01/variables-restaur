@@ -9,6 +9,7 @@ class CartModel(models.Model):
     title = models.CharField(max_length=4, default='Cart')
     desc = models.CharField(max_length=1000, blank=True)
 
+
     class Meta:
         verbose_name = 'Product'
         verbose_name_plural = 'Products'

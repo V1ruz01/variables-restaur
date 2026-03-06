@@ -1,1 +1,22 @@
 {% extends "base.html" %}
+
+{% block content %}
+<div class='col-sm-6 mb-3 mb-sm-0'>
+    <div>
+        <p class='fw-bold' style='font-size: 24px; padding-top: -4px;'>Welcome! That's <i>{{ user.username }}'s</i> Cart</p>
+    </div>
+    
+    <div class='card-body'>
+        <a class='text-decoration-none' href="{% url 'food:food_list' %}">
+            <button class='card border-success' style='width: 14rem; height: 17rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;'>
+                <p class='text-success' style='margin: 0;'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                    </svg>
+                </p>
+                <p class='text-success text-center fw-bold' style='margin: 0; font-size: 13px'>Add Some Food</p>
+            </button>
+        </a>
+    </div>
+</div>
+{% endblock content %}
