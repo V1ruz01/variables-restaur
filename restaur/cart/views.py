@@ -31,11 +31,11 @@ class CartDetailView(LoginRequiredMixin, DetailView):
         cart = self.get_object()
         items = cart.in_cart_productes.all()
         context['cart_items'] = items
-        # Safe total — handles empty/null prices
         total = 0
+        # prevent crash
         for f in items:
             try:
-                total += float(f.price) if f.price else 0
+                total += float(f.price) if f.price else 0 
             except (ValueError, TypeError):
                 pass
         context['total_price'] = total
@@ -47,7 +47,7 @@ class CartDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'cart/cart_delete.html'
     success_url = reverse_lazy('cart:cart_delete')
 
-
+#ОСТОРОЖНО! Два Инвалида
 class AddToCartView(LoginRequiredMixin, View):
     def post(self, request, pk):
         food = get_object_or_404(FoodModel, pk=pk)

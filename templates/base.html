@@ -19,7 +19,7 @@
     <nav class='navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4'>
             <!-- col-n here affects div-1 -->
       <div class="container-md col-7"> <!-- div-2 -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-3">
           <li class='nav-item'>
             <a class="navbar-brand" href="/">Variables Restaurant</a>
           </li>
@@ -52,6 +52,9 @@
                 {% csrf_token %}
                 <button type="submit" class='nav-link'>Logout</button>
               </form></li>
+              <li>
+                <p class='nav-link' style='margin-left: 4px;'>{{ user.username }}</p>
+              </li>
             </ul>
           </div>
 
@@ -64,14 +67,14 @@
                   <a class='nav-link disabled'>Register</a>
                 </li>
                 <li class="nav-item">
-                  <a class='nav-link disabled' href='login/'>Login</a>
+                  <a class='nav-link disabled'>Login</a>
                 </li>
               {% else %}
                 <li class="nav-item">
-                  <a class='nav-link' href='register/'>Register</a>
+                  <a class='nav-link' href='{% url "account:register" %}'>Register</a>
                 </li>
                 <li class="nav-item">
-                  <a class='nav-link' href='login/'>Login</a>
+                  <a class='nav-link' href='{% url "account:login" %}'>Login</a>
                 </li>
               {% endif %}
             </ul>

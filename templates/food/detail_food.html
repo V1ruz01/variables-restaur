@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ food.name }}{% endblock %}
+{% block title %}{{ foodmodel.food_name }}{% endblock %}
 
 {% block content %}
 <div class='container py-4'>
@@ -10,12 +10,11 @@
         </svg>
         Back to Food List
     </a>
-
     <div class='row g-4'>
         <!-- Image -->
         <div class='col-md-5'>
-            {% if food.image %}
-            <img src="{{ food.image.url }}" class='img-fluid rounded shadow' alt="{{ food.name }}" style='width: 100%; object-fit: cover; max-height: 350px;'>
+            {% if foodmodel.image %}
+            <img src="{{ foodmodel.image.url }}" class='img-fluid rounded shadow' alt="{{ foodmodel.food_name }}" style='width: 100%; object-fit: cover; max-height: 350px;'>
             {% else %}
             <div class='bg-light rounded d-flex align-items-center justify-content-center shadow' style='height: 350px;'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#ccc" class="bi bi-image" viewBox="0 0 16 16">
@@ -28,14 +27,14 @@
 
         <!-- Info -->
         <div class='col-md-7'>
-            <h2 class='fw-bold'>{{ food.name }}</h2>
-            <p class='text-muted'>{{ food.description }}</p>
-            <h4 class='text-success fw-bold'>${{ food.price }}</h4>
+            <h2 class='fw-bold'>{{ foodmodel.food_name }}</h2>
+            <p class='text-muted'>{{ foodmodel.desc }}</p>
+            <h4 class='text-success fw-bold'>${{ foodmodel.price }}</h4>
 
             <hr>
 
             <div class='d-flex gap-2 flex-wrap mt-3'>
-                <!-- Add to Cart -->
+                <!-- Add to Cart (need to fix) --> 
                 <form method="post" action="{% url 'cart:add_to_cart' food_details.pk %}">
                     {% csrf_token %}
                     <button type="submit" class='btn btn-success'>

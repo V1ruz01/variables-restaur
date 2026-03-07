@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class='container py-4'>
+<div class='container py-1'>
     <div class='d-flex justify-content-between align-items-center mb-4'>
         <p class='fw-bold mb-0' style='font-size: 24px;'>Here Some Food that You Can Choose!</p>
         <a href="{% url 'cart:cart_detail' %}" class='btn btn-outline-success'>
@@ -32,7 +32,7 @@
         <div class='col-sm-6 col-md-4 col-lg-3'>
             <div class='card h-100 shadow-sm' style='min-height: 17rem;'>
                 {% if food.image %}
-                <img src="{{ food.image.url }}" class='card-img-top' alt="{{ food.name }}" style='height: 140px; object-fit: cover;'>
+                <img src="{{ food.image.url }}" class='card-img-top' alt="{{ food.food_name }}" style='height: 140px; object-fit: cover;'>
                 {% else %}
                 <div class='bg-light d-flex align-items-center justify-content-center' style='height: 140px;'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#ccc" class="bi bi-image" viewBox="0 0 16 16">
@@ -43,8 +43,8 @@
                 {% endif %}
 
                 <div class='card-body d-flex flex-column'>
-                    <h6 class='card-title fw-bold mb-1'>{{ food.name }}</h6>
-                    <p class='card-text text-muted small mb-1' style='flex-grow: 1;'>{{ food.description|truncatewords:10 }}</p>
+                    <h6 class='card-title fw-bold mb-1'>{{ food.food_name }}</h6>
+                    <p class='card-text text-muted small mb-1' style='flex-grow: 1;'>{{ food.desc|truncatewords:10 }}</p>
                     <p class='fw-bold text-success mb-2'>${{ food.price }}</p>
 
                     <div class='d-flex gap-2'>
