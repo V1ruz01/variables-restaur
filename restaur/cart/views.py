@@ -53,6 +53,7 @@ class AddToCartView(LoginRequiredMixin, View):
         food = get_object_or_404(FoodModel, pk=pk)
         cart, _ = CartModel.objects.get_or_create(user=request.user)
         cart.in_cart_productes.add(food)
+        cart.save()
         return redirect('cart:cart_detail')
 
 
