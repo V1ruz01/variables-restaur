@@ -8,75 +8,67 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <title>
-    Variables Restaurant
-  </title>
-
+  <title>Variables Restaurant</title>
 </head>
 
 <body>
   <header>
     <nav class='navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4'>
-            <!-- col-n here affects div-1 -->
-      <div class="container-md col-7"> <!-- div-2 -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class='nav-item'>
-            <a class="navbar-brand" href="/">Variables Restaurant</a>
-          </li>
-        </ul>
-      </div>
+      <div class="container-md">
 
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold" href="/">Variables Restaurant</a>
 
-      <!-- col-n here affects div-2 -->
-      <div class='container-md col-3'> <!-- div-1 -->
+        <!-- Toggler for mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-        {% if user.is_authenticated %}
+        <!-- Nav items -->
+        <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+          <ul class='navbar-nav ms-auto mb-2 mb-lg-0 align-items-center'>
 
-          <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-            <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+            {% if user.is_authenticated %}
+
+              <!-- Cart Dropdown -->
               <li class="nav-item dropdown">
-                <a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' area-expanded='false'>
-                    Cart Menu
+                <a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                  Cart Menu
                 </a>
-
-          
-              <!-- Dropmenu for the cart menu -->
-                <ul class='dropdown-menu'>
+                <ul class='dropdown-menu dropdown-menu-end'>
                   <li><a class='dropdown-item' href='{% url "cart:cart_detail" %}'>View Cart</a></li>
                   <li><a class='dropdown-item' href='/'>Delete a Cart</a></li>
                 </ul>
               </li>
 
-              <!-- Осторожно! Инвалид!! -->
-              <li><form method="post" action="{% url 'account:logout' %}">
-                {% csrf_token %}
-                <button type="submit" class='nav-link'>Logout</button>
-              </form></li>
-            </ul>
-          </div>
+              <!-- Logout -->
+              <li class="nav-item">
+                <form method="post" action="{% url 'account:logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class='nav-link btn btn-link p-0 mx-2'>Logout</button>
+                </form>
+              </li>
 
-        {% else %}
-        
-          <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-            <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+              <!-- Username -->
+              <li class="nav-item">
+                <span class='nav-link fw-bold'>{{ user.username }}</span>
+              </li>
+
+            {% else %}
+
               {% if request.resolver_match.url_name == 'register' or request.resolver_match.url_name == 'login' %}
-                <li class="nav-item">
-                  <a class='nav-link disabled'>Register</a>
-                </li>
-                <li class="nav-item">
-                  <a class='nav-link disabled' href='login/'>Login</a>
-                </li>
+                <li class="nav-item"><a class='nav-link disabled'>Register</a></li>
+                <li class="nav-item"><a class='nav-link disabled'>Login</a></li>
               {% else %}
-                <li class="nav-item">
-                  <a class='nav-link' href='register/'>Register</a>
-                </li>
-                <li class="nav-item">
-                  <a class='nav-link' href='login/'>Login</a>
-                </li>
+                <li class="nav-item"><a class='nav-link' href='{% url "account:register" %}'>Register</a></li>
+                <li class="nav-item"><a class='nav-link' href='{% url "account:login" %}'>Login</a></li>
               {% endif %}
-            </ul>
-          </div>
-        {% endif %}
+
+            {% endif %}
+
+          </ul>
+        </div>
+
       </div>
     </nav>
   </header>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Delete {{ food.name }}{% endblock %}
+{% block title %}Delete {{ foodmodel.food_name }}{% endblock %}
 
 {% block content %}
 <div class='container py-4' style='max-width: 500px;'>
@@ -13,7 +13,7 @@
                 </svg>
             </div>
 
-            <h4 class='fw-bold mb-2'>Delete "{{ food.name }}"?</h4>
+            <h4 class='fw-bold mb-2'>Delete "{{ foodmodel.food_name }}"?</h4>
             <p class='text-muted mb-4'>This action cannot be undone. The food item will be permanently removed.</p>
 
             <form method="post">
